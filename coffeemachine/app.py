@@ -1,8 +1,14 @@
 resourceManager = {
-    "Water": [100, "ml"],
-    "Milk": [50, "ml"],
+    "Water": [1000, "ml"],
+    "Milk": [500, "ml"],
     "Coffee": [76, "g"],
     "Money": [2.5, "$"],
+}
+
+drinkResources = {
+    "espresso": {"Water": 60, "Coffee": 16},
+    "latte": {"Water": 60, "Milk": 200, "Coffee": 16},
+    "cappuccino": {"Water": 20, "Milk": 125, "Coffee": 14},
 }
 
 
@@ -16,6 +22,16 @@ def report(resourceDict):
     return returnString
 
 
+def check_resources(drinkDict, resourceDict):
+    returnString = ""
+    for key, value in drinkDict.items():
+        if resourceDict[key][0] < value:
+            returnString += f"Sorry not enough {key}"
+            return returnString
+    returnString = "thank you"
+    return returnString
+
+
 def run_coffee_machine():
 
     while True:
@@ -26,6 +42,9 @@ def run_coffee_machine():
             break
         elif userInput == "report":
             print(report(resourceManager))
+        elif userInput in ["espresso", "latte", "cappuccino"]:
+            print(drinkResources[userInput])
+            print(check_resources(drinkResources[userInput], resourceManager))
 
 
 if __name__ == "__main__":
