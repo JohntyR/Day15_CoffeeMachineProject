@@ -7,7 +7,7 @@ resourceManager = {
 
 drinkResources = {
     "espresso": {"Water": 60, "Coffee": 16},
-    "latte": {"Water": 60, "Milk": 200, "Coffee": 16},
+    "latte": {"Water": 60, "Milk": 2000, "Coffee": 16},
     "cappuccino": {"Water": 20, "Milk": 125, "Coffee": 14},
 }
 
@@ -29,7 +29,13 @@ def check_resources(drinkDict, resourceDict):
             returnString += f"Sorry not enough {key}"
             return returnString
     returnString = "thank you"
+    decrement_resources(drinkDict, resourceDict)
     return returnString
+
+
+def decrement_resources(drinkDict, resourceDict):
+    for key, value in drinkDict.items():
+        resourceDict[key][0] -= value
 
 
 def run_coffee_machine():
@@ -37,7 +43,7 @@ def run_coffee_machine():
     while True:
         print("Hi, what would you like? (espresso/latte/cappuccino)")
         userInput = input()
-        print(userInput)
+
         if userInput == "off":
             break
         elif userInput == "report":
